@@ -72,3 +72,31 @@ INSERT INTO Ingresso (valor, forma_pagamento, id_sessao, id_cliente) VALUES
 
 INSERT INTO Usuario (username, senha_hash, tipo)
 VALUES ('admin', encode(digest('admin123','sha256'),'hex'), 'admin');
+SELECT * FROM Filme;
+SELECT * FROM Sala;
+SELECT * FROM Sessao;
+SELECT * FROM Cliente;
+SELECT * FROM Ingresso;
+
+SELECT 
+    s.id_sessao,
+    s.data,
+    s.horario,
+    f.titulo AS filme,
+    sa.nome_sala AS sala
+FROM Sessao s
+JOIN Filme f ON f.id_filme = s.id_filme
+JOIN Sala sa ON sa.id_sala = s.id_sala;
+
+SELECT 
+    i.id_ingresso,
+    i.valor,
+    i.forma_pagamento,
+    c.nome AS cliente,
+    f.titulo AS filme,
+    s.data,
+    s.horario
+FROM Ingresso i
+JOIN Cliente c ON c.id_cliente = i.id_cliente
+JOIN Sessao s ON s.id_sessao = i.id_sessao
+JOIN Filme f ON f.id_filme = s.id_filme;
